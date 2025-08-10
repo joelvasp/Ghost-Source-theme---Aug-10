@@ -1627,6 +1627,14 @@ Search                         LOGO                    Login Subscribe
     position: relative;
 }
 
+.home-template .gh-container.has-sidebar .gh-main {
+    grid-column: 1 / span 11;
+}
+
+.home-template .gh-container.has-sidebar .gh-sidebar {
+    grid-column: 12 / -1;
+}
+
 .gh-container.has-sidebar .gh-sidebar {
     grid-column: 13 / -1;
 }
@@ -3331,3 +3339,48 @@ body[class*=" gh-font-heading"]:not(.gh-font-heading-fira-sans):not(.gh-font-hea
 .pswp--minimal--dark .pswp__top-bar {
     background: none;
 }
+
+/* ... existing code ... */
+.gh-featured-feed.is-sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.gh-featured.is-sidebar .gh-featured-feed .gh-card::before {
+    display: none;
+}
+
+.gh-featured-feed.is-sidebar .gh-card-link {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.gh-featured-feed.is-sidebar .gh-card-image {
+    width: 64px;
+    aspect-ratio: 1;
+}
+
+.gh-featured-feed.is-sidebar .gh-card-title {
+    font-size: 1.5rem;
+    font-weight: 650;
+}
+
+.gh-featured-feed.is-sidebar .gh-card-excerpt {
+    display: none;
+}
+
+.gh-featured-feed.is-sidebar .gh-card + .gh-card::before {
+    position: absolute;
+    top: calc(var(--grid-gap) / -2);
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-border);
+}
+
+@media (max-width: 1199px) {
+    .gh-container.has-sidebar .gh-sidebar { display: none; }
+}
+/* ... existing code ... */

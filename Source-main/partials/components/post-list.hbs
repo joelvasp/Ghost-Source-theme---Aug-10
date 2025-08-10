@@ -88,33 +88,46 @@
         {{#if showSidebar}}
             <aside class="gh-sidebar">
                 <div class="gh-sidebar-inner">
-                    <section class="gh-about">
-                        {{#if @site.icon}}
-                            <img class="gh-about-icon" src="{{@site.icon}}" alt="{{@site.title}}" loading="lazy">
-                        {{/if}}
-                        <h3 class="gh-about-title is-title">{{@site.title}}</h3>
-                        {{#if @site.description}}
-                            <p class="gh-about-description is-body">{{@site.description}}</p>
-                        {{/if}}
-                        {{#if @site.members_enabled}}
-                            {{#unless @member}}
-                                <button class="gh-button" data-portal="signup">Subscribe</button>
-                            {{else}}
-                                {{#if @site.paid_members_enabled}}
-                                    {{#unless @member.paid}}
-                                        <button class="gh-button" data-portal="upgrade">Upgrade</button>
-                                    {{/unless}}
-                                {{/if}}
-                            {{/unless}}
-                        {{/if}}
-                    </section>
-                    {{#if @site.recommendations_enabled}}
-                        <section class="gh-recommendations">
-                            <h4 class="gh-sidebar-title">Recommendations</h4>
-                            {{recommendations}}
-                            <button data-portal="recommendations">See all {{> "icons/arrow"}}</button>
+                    {{#match feed "home"}}
+                        <section class="gh-featured is-sidebar">
+                            <h4 class="gh-sidebar-title">Featured</h4>
+                            <div class="gh-featured-feed is-sidebar">
+                                {{#get "posts" filter="featured:true" include="authors" limit="8" as |featured|}}
+                                    {{#foreach featured}}
+                                        {{> "post-card" imageSizes="72px"}}
+                                    {{/foreach}}
+                                {{/get}}
+                            </div>
                         </section>
-                    {{/if}}
+                    {{else}}
+                        <section class="gh-about">
+                            {{#if @site.icon}}
+                                <img class="gh-about-icon" src="{{@site.icon}}" alt="{{@site.title}}" loading="lazy">
+                            {{/if}}
+                            <h3 class="gh-about-title is-title">{{@site.title}}</h3>
+                            {{#if @site.description}}
+                                <p class="gh-about-description is-body">{{@site.description}}</p>
+                            {{/if}}
+                            {{#if @site.members_enabled}}
+                                {{#unless @member}}
+                                    <button class="gh-button" data-portal="signup">Subscribe</button>
+                                {{else}}
+                                    {{#if @site.paid_members_enabled}}
+                                        {{#unless @member.paid}}
+                                            <button class="gh-button" data-portal="upgrade">Upgrade</button>
+                                        {{/unless}}
+                                    {{/if}}
+                                {{/unless}}
+                            {{/if}}
+                        </section>
+                        {{#if @site.recommendations_enabled}}
+                            <section class="gh-recommendations">
+                                <h4 class="gh-sidebar-title">Recommendations</h4>
+                                {{recommendations}}
+                                <button data-portal="recommendations">See all {{> "icons/arrow"}}</button>
+                            </section>
+                        {{/if}}
+                    {{/match}}
                 </div>
             </aside>
         {{/if}}
